@@ -2,6 +2,7 @@ package com.lcwd.user.UserService.services;
 
 import com.lcwd.user.UserService.entities.User;
 import com.lcwd.user.UserService.repositories.UserRepository;
+import com.lcwd.user.UserService.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveUser(User user) {
-       String randomUserId = "user_"+ UUID.randomUUID();
-       user.setUserId(randomUserId);
+       user.setUserId(CommonUtil.generateRandom());
         return  userRepository.save(user);
     }
 

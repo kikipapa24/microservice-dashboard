@@ -1,6 +1,7 @@
 package com.lcwd.user.UserService.controller;
 
 import com.lcwd.user.UserService.entities.User;
+import com.lcwd.user.UserService.payload.ApiResponse;
 import com.lcwd.user.UserService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,9 @@ public class UserController {
         return  ResponseEntity.ok(user);
     }
 
-    @DeleteMapping(value = "/{userId}")
-    public ResponseEntity<User> getDeleteById(@PathVariable String userId){
-        User user = userService.deleteById(userId);
-        return ResponseEntity.ok(user);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteById(@PathVariable String userId) {
+        userService.deleteById(userId);
+        return ResponseEntity.ok("User deleted successfully.");
     }
 }
