@@ -2,6 +2,7 @@ package com.lcwd.rating.service;
 
 import com.lcwd.rating.entites.Rating;
 import com.lcwd.rating.repositories.RatingRepository;
+import com.lcwd.rating.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +14,28 @@ public class RatingServiceImpl implements RatingService {
     private RatingRepository ratingRepository;
     @Override
     public Rating createRating(Rating rating) {
-        return null;
+        rating.setRatingId(CommonUtil.generateRandom());
+        return ratingRepository.save(rating);
     }
 
     @Override
     public List<Rating> getAllRating() {
-        return null;
+        return ratingRepository.findAll();
     }
 
     @Override
     public Rating getRatingById(String ratingId) {
-        return null;
+        return ratingRepository.findById(ratingId).
+                orElseThrow(()->new RuntimeException("Rating id is not found "+ratingId));
     }
 
     @Override
     public List<Rating> getRatingByUserId(String userId) {
-        return null;
+        return ratingRepository.findByUserId(userId);
     }
 
     @Override
     public List<Rating> getRatingByHotelId(String hotelId) {
-        return null;
+        return ratingRepository.findByHotelId(hotelId);
     }
 }
