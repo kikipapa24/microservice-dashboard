@@ -28,9 +28,11 @@ public interface UserService {
 
     /**
      * TO delete entries from DB based on Id
+     *
      * @param userId
+     * @return
      */
-    void deleteById(String userId);
+    User deleteById(String userId);
 
     /**
      * To update any user in db

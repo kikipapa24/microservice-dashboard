@@ -3,10 +3,9 @@ package com.lcwd.user.UserService.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +21,12 @@ public class User {
     private String email;
     @Column(name = "ABOUT")
     private String about;
+
+    /**
+     * If we don't want to save some field into database
+     */
+    @Transient
+    private List<Rating> ratings = new ArrayList<>();
 
 
 }
