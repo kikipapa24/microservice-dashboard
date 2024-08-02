@@ -14,7 +14,7 @@ import java.util.List;
 public class RatingController {
     @Autowired
     private RatingService ratingService;
-    @PostMapping(value = "/createrating")
+    @PostMapping
     public ResponseEntity<Rating> create(@RequestBody Rating rating){
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(rating));
     }
