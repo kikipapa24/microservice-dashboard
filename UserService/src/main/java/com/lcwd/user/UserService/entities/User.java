@@ -1,7 +1,6 @@
 package com.lcwd.user.UserService.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "micro_users")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User {
     @Id
     @Column(name = "ID")
