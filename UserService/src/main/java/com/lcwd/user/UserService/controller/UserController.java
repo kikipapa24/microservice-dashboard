@@ -1,9 +1,7 @@
 package com.lcwd.user.UserService.controller;
 
 import com.lcwd.user.UserService.entities.User;
-import com.lcwd.user.UserService.payload.ApiResponse;
 import com.lcwd.user.UserService.services.UserService;
-import com.lcwd.user.UserService.services.UserServiceImpl;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -39,11 +37,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/{userId}")
-    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
-    @Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
-    @RateLimiter(name = "userRateLimiter",fallbackMethod = "ratingHotelFallback")
+//    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+//    @Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
+    @RateLimiter(name = "userRateLimiter", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getUserById(@PathVariable String userId) {
-        logger.info("Retry Count : {}",retryCount);
+        logger.info("Retry Count : {}", retryCount);
         retryCount++;
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
@@ -60,7 +58,7 @@ public class UserController {
      */
     public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex) {
         logger.info("Fallback method executed because service is down " + ex.getMessage());
-
+        ex.printStackTrace();
         User user = User.builder()
                 .email("Dummy@gmail.com")
                 .name("Dummy")

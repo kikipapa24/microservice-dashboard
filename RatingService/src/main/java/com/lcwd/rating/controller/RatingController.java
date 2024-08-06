@@ -5,6 +5,7 @@ import com.lcwd.rating.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class RatingController {
         return ResponseEntity.ok(ratingService.getAllRating());
     }
     @GetMapping("{ratingId}")
+    @PreAuthorize("hasAuthority('SCOPE_internal') || hasAuthority('Admin')")
     public ResponseEntity<Rating> getRatingById(@PathVariable String ratingId){
         return ResponseEntity.ok(ratingService.getRatingById(ratingId));
     }
 
 
     @GetMapping("/users/{userId}")
+    @PreAuthorize("hasAuthority('SCOPE_internal') || hasAuthority('Admin')")
     public ResponseEntity<List<Rating>> getRatingByUserId(@PathVariable String userId){
         return ResponseEntity.ok(ratingService.getRatingByUserId(userId));
     }
